@@ -1,0 +1,13 @@
+TOCSUAV V2
+
+1. Extraia o ZIP e abra index.html.
+2. WhatsApp já configurado: (91) 98146-4384.
+3. Depoimentos estão identificados como exemplos ilustrativos; substitua por avaliações reais autorizadas.
+4. Imagens atualizadas: hero, relaxante, drenagem, premium, manta térmica e foto profissional já estão incluídas na pasta images/.
+
+COMO COLOCAR NA WEB
+Opção simples: publique a pasta em um serviço de hospedagem de site estático (por exemplo, Netlify Drop ou GitHub Pages). Após a publicação, você recebe um endereço público que pode abrir no celular, Instagram e WhatsApp.
+
+
+DESLOCAMENTO
+Os preços informados são dos serviços. O custo de deslocamento do massoterapeuta é de responsabilidade do cliente e deve ser informado antes da confirmação do agendamento.
