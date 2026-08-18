@@ -1,1 +1,18 @@
-const p="5591981464384",url=m=>`https://wa.me/${p}?text=${encodeURIComponent(m)}`;document.querySelectorAll(".wa").forEach(a=>{a.href=url(a.dataset.msg);a.target="_blank";a.rel="noopener"});document.querySelectorAll(".service").forEach(a=>{a.href=url(`Olá! Vim pelo site da TOCSUAV. Tenho interesse em ${a.dataset.service}. Quais horários estão disponíveis?`);a.target="_blank";a.rel="noopener"});
+const menuButton = document.querySelector('.menu-button');
+const menu = document.querySelector('#menu-principal');
+
+if (menuButton && menu) {
+  menuButton.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+  });
+
+  menu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Abrir menu');
+    });
+  });
+}
