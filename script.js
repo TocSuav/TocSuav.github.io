@@ -17,6 +17,49 @@ if (menuButton && menu) {
   });
 }
 
+// Logo tipográfica: substitui as imagens da marca por texto real no site.
+const brandStyle = document.createElement('style');
+brandStyle.textContent = `
+  .brand-wordmark {
+    display: inline-block;
+    font-family: "Bodoni 72", Didot, "Bodoni MT", "Times New Roman", serif;
+    font-size: 41px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.055em;
+    color: #3b2114;
+    white-space: nowrap;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .navbar .brand-wordmark {
+    transform: scaleY(1.04);
+    transform-origin: left center;
+  }
+
+  footer .brand-wordmark {
+    color: #d7ad72;
+    font-size: 44px;
+    letter-spacing: -0.055em;
+  }
+
+  @media (max-width: 600px) {
+    .brand-wordmark { font-size: 34px; }
+    footer .brand-wordmark { font-size: 38px; }
+  }
+`;
+document.head.appendChild(brandStyle);
+
+document.querySelectorAll('.logo, .footer-logo').forEach(logoImage => {
+  const wordmark = document.createElement('span');
+  wordmark.className = 'brand-wordmark';
+  wordmark.textContent = 'TOCSUAV';
+  wordmark.setAttribute('role', 'img');
+  wordmark.setAttribute('aria-label', 'TOCSUAV');
+  logoImage.replaceWith(wordmark);
+});
+
 // Alterna a frase principal a cada nova visita sem repetir a frase anterior.
 const heroTitle = document.querySelector('#hero-title');
 const heroTitles = [
