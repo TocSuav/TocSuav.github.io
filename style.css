@@ -88,7 +88,7 @@ img { display: block; max-width: 100%; }
 
 .sports { background: #f2e9de; }
 .sports-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 22px; align-items: stretch; }
-.sports-photo { border-radius: 20px; overflow: hidden; min-height: 430px; background: url("hero-massoterapia.jpeg") center 55% / cover no-repeat; }
+.sports-photo { border-radius: 20px; overflow: hidden; min-height: 430px; background: url("IMG_5302.jpeg") center 55% / cover no-repeat; }
 .sports-photo img { width: 100%; height: 100%; object-fit: cover; opacity: 0; }
 .sports-copy { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; }
 .sports-copy h3 { font: 28px Georgia, "Times New Roman", serif; margin: 6px 0 12px; }
