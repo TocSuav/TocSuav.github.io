@@ -99,3 +99,110 @@ if (testimonialTrack && testimonialPrev && testimonialNext) {
   testimonialPrev.addEventListener('click', () => move(-1));
   testimonialNext.addEventListener('click', () => move(1));
 }
+
+// Novas imagens enviadas pelo cliente: serviços e materiais.
+const uploadedImages = {
+  drenagem: 'IMG_5304.jpeg',
+  liberacao: 'IMG_5302.jpeg',
+  manta: 'IMG_5298.jpeg',
+  bambooterapia: 'IMG_5289.jpeg',
+  pantala: 'IMG_5292.jpeg',
+  liberadores: 'IMG_5294.jpeg',
+  pedras: 'IMG_5295.jpeg',
+  rolo: 'IMG_5309.jpeg',
+  ventosa: 'IMG_5303.jpeg'
+};
+
+// Drenagem linfática: usa a nova foto enviada.
+const drenagemCard = Array.from(document.querySelectorAll('#servicos .card')).find(card =>
+  card.querySelector('h3')?.textContent.trim().toLowerCase().includes('drenagem')
+);
+if (drenagemCard) {
+  const image = drenagemCard.querySelector('img');
+  if (image) {
+    image.src = uploadedImages.drenagem;
+    image.alt = 'Drenagem linfática';
+  }
+}
+
+// Liberação miofascial: usa a nova foto na seção de massagem desportiva.
+const liberacaoImage = document.querySelector('#esportiva .sports-photo img');
+if (liberacaoImage) {
+  liberacaoImage.src = uploadedImages.liberacao;
+  liberacaoImage.alt = 'Massagem desportiva e liberação miofascial';
+}
+
+// A seção de equipamentos passa a apresentar todos os materiais enviados.
+const equipmentSection = document.querySelector('#equipamentos');
+const equipmentGrid = equipmentSection?.querySelector('.equipment-grid');
+if (equipmentSection && equipmentGrid) {
+  const title = equipmentSection.querySelector('h2');
+  const eyebrow = equipmentSection.querySelector('.eyebrow');
+  const intro = equipmentSection.querySelector('.section-title p');
+  const note = equipmentSection.querySelector('.note');
+  const navEquipment = document.querySelector('.nav-links a[href="#equipamentos"]');
+
+  if (eyebrow) eyebrow.textContent = 'Materiais utilizados';
+  if (title) title.textContent = 'Materiais utilizados nos serviços';
+  if (intro) intro.textContent = 'Os recursos abaixo fazem parte da estrutura da TocSuav e são utilizados conforme o serviço escolhido e o que for alinhado antes da sessão.';
+  if (navEquipment) navEquipment.textContent = 'Materiais';
+  if (note) note.textContent = 'Os materiais são utilizados conforme a proposta de cada atendimento. Nem todos os recursos são usados em todas as sessões.';
+
+  const materials = [
+    {
+      name: 'Manta térmica', image: uploadedImages.manta,
+      alt: 'Manta térmica para massoterapia',
+      description: 'Aquecimento controlado para proporcionar calor e conforto quando esse recurso é adequado.',
+      price: 'R$ 60', extra: 'Serviço avulso.'
+    },
+    {
+      name: 'Bambooterapia', image: uploadedImages.bambooterapia,
+      alt: 'Bambus para bambooterapia',
+      description: 'Bambus utilizados em manobras específicas, permitindo variar pressão e formato do toque conforme a proposta da sessão.'
+    },
+    {
+      name: 'Pantala', image: uploadedImages.pantala,
+      alt: 'Pantala para massoterapia',
+      description: 'Instrumento manual utilizado para complementar técnicas específicas conforme o objetivo do atendimento.'
+    },
+    {
+      name: 'Liberadores miofasciais', image: uploadedImages.liberadores,
+      alt: 'Liberadores miofasciais',
+      description: 'Instrumentos utilizados para direcionar o trabalho em regiões de maior tensão dentro da proposta da sessão.'
+    },
+    {
+      name: 'Pedras quentes', image: uploadedImages.pedras,
+      alt: 'Pedras quentes para massoterapia',
+      description: 'Utilizadas quando adequadas ao atendimento, acrescentando calor e uma sensação diferente ao toque.'
+    },
+    {
+      name: 'Rolo com ventosa', image: uploadedImages.rolo,
+      alt: 'Rolo com ventosa',
+      description: 'Recurso manual que pode complementar técnicas específicas conforme o serviço e o alinhamento prévio.'
+    },
+    {
+      name: 'Ventosa', image: uploadedImages.ventosa,
+      alt: 'Kit de ventosas',
+      description: 'Recurso utilizado conforme a proposta da sessão e o que for alinhado antes do atendimento.',
+      price: 'R$ 60', extra: 'Serviço avulso.'
+    }
+  ];
+
+  equipmentGrid.innerHTML = '';
+  materials.forEach(material => {
+    const article = document.createElement('article');
+    article.className = 'equipment-card';
+    article.innerHTML = `
+      <div class="equipment-visual">
+        <img src="${material.image}" alt="${material.alt}" loading="lazy">
+      </div>
+      <div class="equipment-body">
+        <h3>${material.name}</h3>
+        <p>${material.description}</p>
+        ${material.price ? `<div class="price">${material.price}</div>` : ''}
+        ${material.extra ? `<p>${material.extra}</p>` : ''}
+      </div>
+    `;
+    equipmentGrid.appendChild(article);
+  });
+}
