@@ -93,10 +93,10 @@ if (testimonialTrack && testimonialPrev && testimonialNext) {
 // Liberadores miofasciais, Pedras quentes, Rolo com ventosa e Ventosa.
 const uploadedImages = {
   drenagem: 'IMG_5304.jpeg',
-  liberacao: 'IMG_5292.jpeg',
+  liberacao: 'IMG_5302.jpeg',
   manta: 'IMG_5298.jpeg',
   bambooterapia: 'IMG_5289.jpeg',
-  pantala: 'IMG_5302.jpeg',
+  pantala: 'IMG_5292.jpeg',
   liberadores: 'IMG_5294.jpeg',
   pedras: 'IMG_5295.jpeg',
   rolo: 'IMG_5309.jpeg',
@@ -114,7 +114,7 @@ if (drenagemCard) {
   }
 }
 
-// A recuperação para quem treina volta a usar a imagem correta da liberação miofascial.
+// Única alteração solicitada: recuperação para quem treina usa a imagem que estava na Pantala.
 const liberacaoImage = document.querySelector('#esportiva .sports-photo img');
 if (liberacaoImage) {
   liberacaoImage.src = uploadedImages.liberacao;
