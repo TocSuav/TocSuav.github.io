@@ -88,17 +88,18 @@ if (testimonialTrack && testimonialPrev && testimonialNext) {
   testimonialNext.addEventListener('click', () => move(1));
 }
 
-// Imagens enviadas para os serviços e materiais.
-// A ordem dos materiais permanece: Manta, Bambooterapia, Pantala,
+// Mapeamento definitivo das imagens enviadas pelo cliente.
+// Não alterar a ordem dos materiais: Manta, Bambooterapia, Pantala,
 // Liberadores miofasciais, Pedras quentes, Rolo com ventosa e Ventosa.
 const uploadedImages = {
   drenagem: 'IMG_5304.jpeg',
-  liberacao: 'IMG_5302.jpeg',
+  liberacao: 'IMG_5292.jpeg',
+  manta: 'IMG_5298.jpeg',
   bambooterapia: 'IMG_5289.jpeg',
-  pantala: 'IMG_5309.jpeg',
+  pantala: 'IMG_5302.jpeg',
   liberadores: 'IMG_5294.jpeg',
   pedras: 'IMG_5295.jpeg',
-  rolo: 'IMG_5298.jpeg',
+  rolo: 'IMG_5309.jpeg',
   ventosa: 'IMG_5303.jpeg'
 };
 
@@ -113,7 +114,7 @@ if (drenagemCard) {
   }
 }
 
-// Retoma a imagem correta da sessão de liberação na seção desportiva.
+// A recuperação para quem treina volta a usar a imagem correta da liberação miofascial.
 const liberacaoImage = document.querySelector('#esportiva .sports-photo img');
 if (liberacaoImage) {
   liberacaoImage.src = uploadedImages.liberacao;
@@ -138,7 +139,7 @@ if (equipmentSection && equipmentGrid) {
 
   const materials = [
     {
-      name: 'Manta térmica', image: 'manta-termica.jpeg',
+      name: 'Manta térmica', image: uploadedImages.manta,
       alt: 'Manta térmica para massoterapia',
       description: 'Aquecimento controlado para proporcionar calor e conforto quando esse recurso é adequado.',
       price: 'R$ 60', extra: 'Serviço avulso.'
@@ -196,9 +197,8 @@ if (equipmentSection && equipmentGrid) {
   });
 }
 
-// Enquadramento responsivo: as fotos preenchem o espaço, sem a borda vazia
-// criada pelo object-fit: contain. Cada material recebe um pequeno ajuste
-// vertical para manter o objeto principal visível em telas diferentes.
+// Enquadramento responsivo já aprovado: preencher o espaço sem borda vazia,
+// mantendo o objeto principal visível e sem trocar a ordem dos materiais.
 const responsiveImageStyle = document.createElement('style');
 responsiveImageStyle.textContent = `
   .card.premium img {
@@ -237,7 +237,6 @@ responsiveImageStyle.textContent = `
     padding: 0 !important;
   }
 
-  /* Ajustes individuais para mostrar os materiais, sem cortar o foco. */
   .equipment-card[data-material-index="1"] .equipment-visual img { object-position: center 60% !important; }
   .equipment-card[data-material-index="2"] .equipment-visual img { object-position: center 55% !important; }
   .equipment-card[data-material-index="3"] .equipment-visual img { object-position: center 50% !important; }
