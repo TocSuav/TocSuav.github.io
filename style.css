@@ -365,4 +365,43 @@ footer p { color: #aaa; font-size: 13px; margin-top: 7px; }
   .testimonial-controls { margin-top: -18px; }
   .testimonial-track { grid-auto-columns: minmax(275px, 86vw); }
   .whatsapp-float { right: 12px; bottom: 12px; }
+
+  /* Ajustes de enquadramento para celular */
+  .card.premium img {
+    height: 225px;
+    object-fit: contain;
+    object-position: center;
+    background: #f2e8dc;
+  }
+
+  /* A foto da modeladora fica limpa em cima e o texto passa para baixo,
+     sem cobrir o corpo da cliente. */
+  .measure-visual {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: none;
+    overflow: hidden;
+  }
+  .measure-visual::before {
+    content: "";
+    display: block;
+    flex: 0 0 300px;
+    width: 100%;
+    background:
+      linear-gradient(rgba(36, 28, 22, .08), rgba(36, 28, 22, .18)),
+      url("drenagem.jpeg") center 38% / cover no-repeat;
+  }
+  .measure-visual-content {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin: 0;
+    border-radius: 0;
+    background: rgba(28, 24, 20, .96);
+    padding: 18px 20px 21px;
+  }
+  .measure-visual h3 { font-size: 25px; line-height: 1.12; }
+  .measure-visual p { font-size: 13px; }
 }
