@@ -103,13 +103,13 @@ if (testimonialTrack && testimonialPrev && testimonialNext) {
 // Novas imagens enviadas pelo cliente: serviços e materiais.
 const uploadedImages = {
   drenagem: 'IMG_5304.jpeg',
-  liberacao: 'IMG_5302.jpeg',
-  manta: 'IMG_5298.jpeg',
+  liberacao: 'IMG_5292.jpeg',
+  manta: 'IMG_5294.jpeg',
   bambooterapia: 'IMG_5289.jpeg',
-  pantala: 'IMG_5292.jpeg',
-  liberadores: 'IMG_5294.jpeg',
+  pantala: 'IMG_5309.jpeg',
+  liberadores: 'IMG_5302.jpeg',
   pedras: 'IMG_5295.jpeg',
-  rolo: 'IMG_5309.jpeg',
+  rolo: 'IMG_5298.jpeg',
   ventosa: 'IMG_5303.jpeg'
 };
 
@@ -125,14 +125,14 @@ if (drenagemCard) {
   }
 }
 
-// Liberação miofascial: usa a nova foto na seção de massagem desportiva.
+// Liberação miofascial: usa a nova foto enviada na seção desportiva.
 const liberacaoImage = document.querySelector('#esportiva .sports-photo img');
 if (liberacaoImage) {
   liberacaoImage.src = uploadedImages.liberacao;
   liberacaoImage.alt = 'Massagem desportiva e liberação miofascial';
 }
 
-// A seção de equipamentos passa a apresentar todos os materiais enviados.
+// A seção de materiais passa a apresentar todos os recursos enviados.
 const equipmentSection = document.querySelector('#equipamentos');
 const equipmentGrid = equipmentSection?.querySelector('.equipment-grid');
 if (equipmentSection && equipmentGrid) {
@@ -144,7 +144,7 @@ if (equipmentSection && equipmentGrid) {
 
   if (eyebrow) eyebrow.textContent = 'Materiais utilizados';
   if (title) title.textContent = 'Materiais utilizados nos serviços';
-  if (intro) intro.textContent = 'Os recursos abaixo fazem parte da estrutura da TocSuav e são utilizados conforme o serviço escolhido e o que for alinhado antes da sessão.';
+  if (intro) intro.textContent = 'Recursos escolhidos conforme a técnica e a proposta da sessão, sempre alinhados antes do atendimento.';
   if (navEquipment) navEquipment.textContent = 'Materiais';
   if (note) note.textContent = 'Os materiais são utilizados conforme a proposta de cada atendimento. Nem todos os recursos são usados em todas as sessões.';
 
@@ -206,3 +206,83 @@ if (equipmentSection && equipmentGrid) {
     equipmentGrid.appendChild(article);
   });
 }
+
+// Ajustes visuais responsivos: prioriza o enquadramento completo dos objetos,
+// evita cortes e mantém textos dentro dos cartões em celulares, tablets e desktops.
+const responsiveImageStyle = document.createElement('style');
+responsiveImageStyle.textContent = `
+  /* Premium: mostra a foto inteira, sem cortar o enquadramento. */
+  .card.premium img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: #f2e8dc;
+  }
+
+  /* Materiais: o objeto é o foco. A foto completa permanece visível. */
+  .equipment-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+  }
+  .equipment-card {
+    min-width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .equipment-visual {
+    height: auto !important;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #eee5da;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .equipment-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain !important;
+    object-position: center center !important;
+    padding: 10px;
+  }
+  .equipment-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .equipment-body h3,
+  .equipment-body p {
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 1100px) {
+    .equipment-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 760px) {
+    .equipment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .equipment-visual { aspect-ratio: 1 / 1; }
+    .equipment-visual img { padding: 8px; }
+    .equipment-body { padding: 15px; }
+    .equipment-body h3 { font-size: 19px; line-height: 1.2; }
+    .equipment-body p { font-size: 12.5px; line-height: 1.5; }
+    .equipment-body .price { font-size: 23px; margin: 10px 0 4px; }
+  }
+
+  @media (max-width: 430px) {
+    .equipment-grid { grid-template-columns: 1fr; gap: 16px; }
+    .equipment-visual { aspect-ratio: 4 / 3; }
+    .equipment-visual img { padding: 12px; }
+    .equipment-body { padding: 17px; }
+    .equipment-body h3 { font-size: 21px; }
+    .equipment-body p { font-size: 13px; }
+
+    .card.premium img {
+      aspect-ratio: 4 / 3;
+      padding: 0;
+    }
+  }
+`;
+document.head.appendChild(responsiveImageStyle);
