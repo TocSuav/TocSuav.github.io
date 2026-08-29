@@ -17,7 +17,6 @@ if (menuButton && menu) {
   });
 }
 
-// Logo tipográfica: substitui as imagens da marca por texto real no site.
 const brandStyle = document.createElement('style');
 brandStyle.textContent = `
   .brand-wordmark {
@@ -32,18 +31,8 @@ brandStyle.textContent = `
     text-rendering: geometricPrecision;
     -webkit-font-smoothing: antialiased;
   }
-
-  .navbar .brand-wordmark {
-    transform: scaleY(1.04);
-    transform-origin: left center;
-  }
-
-  footer .brand-wordmark {
-    color: #d7ad72;
-    font-size: 44px;
-    letter-spacing: -0.055em;
-  }
-
+  .navbar .brand-wordmark { transform: scaleY(1.04); transform-origin: left center; }
+  footer .brand-wordmark { color: #d7ad72; font-size: 44px; letter-spacing: -0.055em; }
   @media (max-width: 600px) {
     .brand-wordmark { font-size: 34px; }
     footer .brand-wordmark { font-size: 38px; }
@@ -60,7 +49,6 @@ document.querySelectorAll('.logo, .footer-logo').forEach(logoImage => {
   logoImage.replaceWith(wordmark);
 });
 
-// Alterna a frase principal a cada nova visita sem repetir a frase anterior.
 const heroTitle = document.querySelector('#hero-title');
 const heroTitles = [
   'Permita-se desacelerar. Nós cuidamos do resto.',
@@ -100,20 +88,20 @@ if (testimonialTrack && testimonialPrev && testimonialNext) {
   testimonialNext.addEventListener('click', () => move(1));
 }
 
-// Novas imagens enviadas pelo cliente: serviços e materiais.
+// Imagens enviadas para os serviços e materiais.
+// A ordem dos materiais permanece: Manta, Bambooterapia, Pantala,
+// Liberadores miofasciais, Pedras quentes, Rolo com ventosa e Ventosa.
 const uploadedImages = {
   drenagem: 'IMG_5304.jpeg',
-  liberacao: 'IMG_5292.jpeg',
-  manta: 'IMG_5294.jpeg',
+  liberacao: 'IMG_5302.jpeg',
   bambooterapia: 'IMG_5289.jpeg',
   pantala: 'IMG_5309.jpeg',
-  liberadores: 'IMG_5302.jpeg',
+  liberadores: 'IMG_5294.jpeg',
   pedras: 'IMG_5295.jpeg',
   rolo: 'IMG_5298.jpeg',
   ventosa: 'IMG_5303.jpeg'
 };
 
-// Drenagem linfática: usa a nova foto enviada.
 const drenagemCard = Array.from(document.querySelectorAll('#servicos .card')).find(card =>
   card.querySelector('h3')?.textContent.trim().toLowerCase().includes('drenagem')
 );
@@ -125,16 +113,16 @@ if (drenagemCard) {
   }
 }
 
-// Liberação miofascial: usa a nova foto enviada na seção desportiva.
+// Retoma a imagem correta da sessão de liberação na seção desportiva.
 const liberacaoImage = document.querySelector('#esportiva .sports-photo img');
 if (liberacaoImage) {
   liberacaoImage.src = uploadedImages.liberacao;
   liberacaoImage.alt = 'Massagem desportiva e liberação miofascial';
 }
 
-// A seção de materiais passa a apresentar todos os recursos enviados.
 const equipmentSection = document.querySelector('#equipamentos');
 const equipmentGrid = equipmentSection?.querySelector('.equipment-grid');
+
 if (equipmentSection && equipmentGrid) {
   const title = equipmentSection.querySelector('h2');
   const eyebrow = equipmentSection.querySelector('.eyebrow');
@@ -150,7 +138,7 @@ if (equipmentSection && equipmentGrid) {
 
   const materials = [
     {
-      name: 'Manta térmica', image: uploadedImages.manta,
+      name: 'Manta térmica', image: 'manta-termica.jpeg',
       alt: 'Manta térmica para massoterapia',
       description: 'Aquecimento controlado para proporcionar calor e conforto quando esse recurso é adequado.',
       price: 'R$ 60', extra: 'Serviço avulso.'
@@ -189,7 +177,7 @@ if (equipmentSection && equipmentGrid) {
   ];
 
   equipmentGrid.innerHTML = '';
-  materials.forEach(material => {
+  materials.forEach((material, index) => {
     const article = document.createElement('article');
     article.className = 'equipment-card';
     article.innerHTML = `
@@ -203,25 +191,25 @@ if (equipmentSection && equipmentGrid) {
         ${material.extra ? `<p>${material.extra}</p>` : ''}
       </div>
     `;
+    article.dataset.materialIndex = String(index + 1);
     equipmentGrid.appendChild(article);
   });
 }
 
-// Ajustes visuais responsivos: prioriza o enquadramento completo dos objetos,
-// evita cortes e mantém textos dentro dos cartões em celulares, tablets e desktops.
+// Enquadramento responsivo: as fotos preenchem o espaço, sem a borda vazia
+// criada pelo object-fit: contain. Cada material recebe um pequeno ajuste
+// vertical para manter o objeto principal visível em telas diferentes.
 const responsiveImageStyle = document.createElement('style');
 responsiveImageStyle.textContent = `
-  /* Premium: mostra a foto inteira, sem cortar o enquadramento. */
   .card.premium img {
     width: 100%;
     aspect-ratio: 4 / 3;
     height: auto !important;
-    object-fit: contain !important;
-    object-position: center center !important;
-    background: #f2e8dc;
+    object-fit: cover !important;
+    object-position: center 62% !important;
+    background: transparent;
   }
 
-  /* Materiais: o objeto é o foco. A foto completa permanece visível. */
   .equipment-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: stretch;
@@ -244,18 +232,22 @@ responsiveImageStyle.textContent = `
   .equipment-visual img {
     width: 100%;
     height: 100%;
-    object-fit: contain !important;
-    object-position: center center !important;
-    padding: 10px;
+    object-fit: cover !important;
+    object-position: center 55% !important;
+    padding: 0 !important;
   }
-  .equipment-body {
-    flex: 1;
-    min-width: 0;
-  }
-  .equipment-body h3,
-  .equipment-body p {
-    overflow-wrap: anywhere;
-  }
+
+  /* Ajustes individuais para mostrar os materiais, sem cortar o foco. */
+  .equipment-card[data-material-index="1"] .equipment-visual img { object-position: center 60% !important; }
+  .equipment-card[data-material-index="2"] .equipment-visual img { object-position: center 55% !important; }
+  .equipment-card[data-material-index="3"] .equipment-visual img { object-position: center 50% !important; }
+  .equipment-card[data-material-index="4"] .equipment-visual img { object-position: center 52% !important; }
+  .equipment-card[data-material-index="5"] .equipment-visual img { object-position: center 58% !important; }
+  .equipment-card[data-material-index="6"] .equipment-visual img { object-position: center 55% !important; }
+  .equipment-card[data-material-index="7"] .equipment-visual img { object-position: center 52% !important; }
+
+  .equipment-body { flex: 1; min-width: 0; }
+  .equipment-body h3, .equipment-body p { overflow-wrap: anywhere; }
 
   @media (max-width: 1100px) {
     .equipment-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -263,8 +255,7 @@ responsiveImageStyle.textContent = `
 
   @media (max-width: 760px) {
     .equipment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-    .equipment-visual { aspect-ratio: 1 / 1; }
-    .equipment-visual img { padding: 8px; }
+    .equipment-visual { aspect-ratio: 4 / 3; }
     .equipment-body { padding: 15px; }
     .equipment-body h3 { font-size: 19px; line-height: 1.2; }
     .equipment-body p { font-size: 12.5px; line-height: 1.5; }
@@ -274,15 +265,10 @@ responsiveImageStyle.textContent = `
   @media (max-width: 430px) {
     .equipment-grid { grid-template-columns: 1fr; gap: 16px; }
     .equipment-visual { aspect-ratio: 4 / 3; }
-    .equipment-visual img { padding: 12px; }
     .equipment-body { padding: 17px; }
     .equipment-body h3 { font-size: 21px; }
     .equipment-body p { font-size: 13px; }
-
-    .card.premium img {
-      aspect-ratio: 4 / 3;
-      padding: 0;
-    }
+    .card.premium img { aspect-ratio: 4 / 3; padding: 0; }
   }
 `;
 document.head.appendChild(responsiveImageStyle);
